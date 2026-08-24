@@ -32,8 +32,8 @@ if not exist "%BUILD_DIR%" (
 :: Navigate into selected build directory
 cd "%BUILD_DIR%"
 
-:: Configure with CMake specifying build type
-cmake -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..\..
+:: Configure with CMake. The Visual Studio generator selects the configuration at build time.
+cmake ..\..
 if %ERRORLEVEL% neq 0 (
     echo.
     echo [ERROR] CMake configuration failed!

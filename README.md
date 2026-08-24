@@ -1,156 +1,70 @@
-# Quantum Circuit Library
+# Quantum Circuit Simulation
 
-A lightweight C++17 quantum circuit simulation project focused on statevector simulation and bit-manipulation-based quantum gate application.
+## Version 0.2
 
-> **Status:** v0.1 — foundational CPU implementation / research prototype.
+This release consolidates the planned 0.2 through 5 milestones into one research-oriented C++17 reference simulator. It includes the original statevector gate engine, circuit-library algorithms, Grover and Shor building blocks, and variational VQE/QAOA support.
 
-## Overview
+The implementation is intentionally split into reusable modules so a future Qt frontend can depend on the engine without changing the simulation contracts.
 
-The project represents a quantum circuit as an ordered collection of gates and executes those gates on a statevector.
+## Features
 
-The current architecture is intentionally simple:
+- Statevector simulation with X, Y, Z, H, T, RX, RY, RZ, CX, CY, CZ, SWAP, and CCX
+- Quantum and classical registers, parameter binding, measurements, probabilities, and circuit composition
+- Arbitrary matrix operators, controlled operators, controlled phase, multi-controlled X, and barriers
+- QFT, inverse QFT, Walsh-Hadamard, phase estimation, amplitude amplification, teleportation, superdense coding, Deutsch, Deutsch-Jozsa, Bernstein-Vazirani, and Simon scaffolding
+- Grover abstractions: `GroverOracle`, `GroverOperator`, and `GroverSearch`
+- Shor decomposition: modular arithmetic, modular exponentiation, period-finding circuit, QFT, measurement-ready state, and classical post-processing
+- Variational computing: Pauli Hamiltonians, expectation values, coordinate descent, VQE, and QAOA
+- Independent console examples for each algorithm
 
-```text
-QuantumCircuit
-      │
-      │ vector<Gate>
-      ▼
-QuantumSimulator
-      │
-      │ gate application
-      ▼
-Statevector
-```
-
-The simulator does **not** construct full \(2^n \times 2^n\) gate matrices. Instead, it works directly on the statevector using basis-state indexing and bit manipulation.
-
-## Current Features
-
-- C++17 implementation
-- Statevector simulation
-- Ordered gate storage using `std::vector<Gate>`
-- Bit-manipulation-based gate application
-- Single-qubit gates:
-  - X
-  - Y
-  - Z
-  - H
-  - T
-  - RX
-  - RY
-  - RZ
-- Two-qubit gates:
-  - CX / CNOT
-  - CY
-  - CZ
-  - SWAP
-- Three-qubit gate:
-  - CCX / Toffoli
-- Basic execution-time measurement
-- CMake build configuration
-- Windows batch build/run helper
-
-## Example
-
-```cpp
-QuantumCircuit circuit(2);
-
-circuit.H(0);
-circuit.CX(1, 0);
-
-QuantumSimulator simulator;
-
-// Run the circuit on a 2-qubit statevector.
-simulator.run(circuit, state, 1 << 2);
-```
-
-The Bell-state circuit above should produce amplitudes corresponding approximately to
+## Project layout
 
 ```text
-|00> : 1/sqrt(2)
-|11> : 1/sqrt(2)
+engine/
+├── include/
+│   ├── core/          circuit and simulator contracts
+│   ├── registers/     quantum/classical registers
+│   ├── algorithms/    circuit-library, Grover, and Shor APIs
+│   └── variational/   Hamiltonian, VQE, QAOA, and optimizer APIs
+├── src/
+│   ├── core/
+│   ├── registers/
+│   ├── algorithms/
+│   ├── variational/
+│   └── console/       temporary console presentation helpers
+├── console/           temporary output helpers for examples and smoke tests
+└── main.cpp
+examples/              one copy-ready main program per algorithm
+docs/                  technical manual
 ```
 
-with the other basis-state amplitudes approximately zero.
+The console helpers are temporary by design. They live under `engine/console` so the current executable can display useful results; a future Qt layer can replace them without changing the simulation modules.
 
-## Building
+## Build
 
-### Requirements
-
-- C++17-compatible compiler
-- CMake 3.20 or newer
-- A standard C++ build environment
-
-### CMake
-
-From the project root:
+Requirements: CMake 3.20 or newer and a C++17 compiler.
 
 ```bash
-mkdir build
-cd build
-cmake ..
-cmake --build .
+cmake -S engine -B engine/build/debug
+cmake --build engine/build/debug --config Debug
 ```
 
-The exact executable location depends on the generator/compiler configuration.
+On Windows, run `engine/run.bat` and choose Debug or Release. Each `.cpp` file in `examples/` becomes an individual executable under the selected build configuration.
 
-### Windows
+## Conventions
 
-The repository also contains `run.bat` for a convenient local build/run workflow.
+Qubit 0 is the least-significant bit of a basis index. A Bell circuit:
 
-## Project Structure
-
-```text
-Quantum-Circuit-Simulation/
-│
-├── engine/
-│   ├── core/
-│   │   ├── QuantumCircuit.cpp
-│   │   └── QuantumSimulator.cpp
-│   │
-│   └── headers/
-│   │   ├── QuantumCircuit.h
-│   │   └── QuantumSimulator.h
-│   │
-│   ├── main.cpp
-│   ├── CMakeLists.txt
-│   └── run.bat
-│
-├── docs/
-│   └── manual.md
-│
-├── README.md
-├── LICENSE
-└── .gitignore
+```cpp
+QuantumCircuit bell(2);
+bell.h(0);
+bell.cx(1, 0);
 ```
 
-## Design Philosophy
+has probability 0.5 at indices 0 and 3. A three-qubit GHZ circuit has probability 0.5 at indices 0 and 7.
 
-The v0.1 implementation deliberately prioritizes clarity and correctness over aggressive optimization.
+## Development milestones
 
-The long-term plan is to keep the public simulation interface stable while replacing or adding optimized execution backends.
+The internal plan remains visible for context: 0.1 foundation, 0.2 programming core, 0.3 circuit library, 0.4 Grover/Shor, and 0.5 variational computing. They are delivered together here as version 0.2. Future work includes QNN inference, gradients, a QNN framework, improved reversible arithmetic, noise models, alternate backends, optimization, serialization, and a Qt frontend.
 
-## Limitations of v0.1
-
-This version is a foundational engine rather than a complete quantum-computing framework.
-
-Currently it does not aim to provide:
-
-- Measurement / shot sampling
-- Noise models
-- Density-matrix simulation
-- GPU execution
-- Distributed simulation
-- Advanced circuit optimization / transpilation
-- Hardware execution
-- Full production-grade error handling
-
-These are planned areas for future versions.
-
-## Documentation
-
-See [`docs/manual.md`](docs/manual.md) for the technical description of the statevector representation, gate storage, bit manipulation, and simulation architecture.
-
-## License
-
-This project is released under the MIT License. See [`LICENSE`](LICENSE).
+See [docs/manual.md](docs/manual.md) for API details and runnable examples.
