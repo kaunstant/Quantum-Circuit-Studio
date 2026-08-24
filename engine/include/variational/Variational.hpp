@@ -18,6 +18,7 @@ struct PauliTerm
 class Hamiltonian
 {
 public:
+    Hamiltonian() = default;
     explicit Hamiltonian(std::vector<PauliTerm> terms);
 
     double expectation(const std::vector<std::complex<double>>& state) const;

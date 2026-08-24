@@ -1,6 +1,7 @@
-#include "AlgorithmLibrary.hpp"
-#include "QuantumSimulator.hpp"
+#include "QNN.hpp"
 
+#include <cmath>
+#include <iomanip>
 #include <iostream>
 
 int main()

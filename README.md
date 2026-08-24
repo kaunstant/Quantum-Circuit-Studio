@@ -1,70 +1,80 @@
 # Quantum Circuit Simulation
 
-## Version 0.2
+## Version 0.3
 
-This release consolidates the planned 0.2 through 5 milestones into one research-oriented C++17 reference simulator. It includes the original statevector gate engine, circuit-library algorithms, Grover and Shor building blocks, and variational VQE/QAOA support.
+A C++17 CPU statevector simulator and quantum machine-learning research framework. This release consolidates the planned milestones into a coherent reference implementation: circuit construction, algorithm building blocks, Grover, Shor, VQE, QAOA, QNN inference, losses, training, and parameter-shift gradients.
 
-The implementation is intentionally split into reusable modules so a future Qt frontend can depend on the engine without changing the simulation contracts.
+The engine is organized as reusable libraries. Console output is intentionally kept in `engine/console` as a temporary demonstration layer so a future Qt frontend can replace it without changing the simulation API.
 
-## Features
+## Current capabilities
 
-- Statevector simulation with X, Y, Z, H, T, RX, RY, RZ, CX, CY, CZ, SWAP, and CCX
-- Quantum and classical registers, parameter binding, measurements, probabilities, and circuit composition
-- Arbitrary matrix operators, controlled operators, controlled phase, multi-controlled X, and barriers
+- Statevector simulation with X, Y, Z, H, T, RX, RY, RZ, CX, CY, CZ, SWAP, CCX, and multi-controlled X
+- Quantum/classical registers, parameter binding, arbitrary matrix operators, controlled operators, barriers, measurement collapse, probabilities, and circuit composition
 - QFT, inverse QFT, Walsh-Hadamard, phase estimation, amplitude amplification, teleportation, superdense coding, Deutsch, Deutsch-Jozsa, Bernstein-Vazirani, and Simon scaffolding
 - Grover abstractions: `GroverOracle`, `GroverOperator`, and `GroverSearch`
-- Shor decomposition: modular arithmetic, modular exponentiation, period-finding circuit, QFT, measurement-ready state, and classical post-processing
-- Variational computing: Pauli Hamiltonians, expectation values, coordinate descent, VQE, and QAOA
-- Independent console examples for each algorithm
+- Shor decomposition: GCD, modular multiplication, modular power, modular exponentiation, period-finding circuit, inverse QFT, and classical post-processing
+- VQE and QAOA with Pauli Hamiltonians, expectation values, graph cost functions, and coordinate-descent optimization
+- QNN feature maps, parameterized ansatz circuits, expectation/probability outputs, multiple observables/output qubits, batch inference, MSE/BCE losses, training, forward passes, backward passes, and parameter-shift gradients
 
-## Project layout
+## Layout
 
 ```text
 engine/
-├── include/
-│   ├── core/          circuit and simulator contracts
-│   ├── registers/     quantum/classical registers
-│   ├── algorithms/    circuit-library, Grover, and Shor APIs
-│   └── variational/   Hamiltonian, VQE, QAOA, and optimizer APIs
-├── src/
-│   ├── core/
-│   ├── registers/
-│   ├── algorithms/
-│   ├── variational/
-│   └── console/       temporary console presentation helpers
-├── console/           temporary output helpers for examples and smoke tests
+├── include/{core,registers,algorithms,variational,qnn}
+├── src/{core,registers,algorithms,variational,qnn}
+├── console/                 temporary console presentation helper
+├── CMakeLists.txt
 └── main.cpp
-examples/              one copy-ready main program per algorithm
-docs/                  technical manual
+examples/                    independent programs with one main() each
+docs/manual.md               detailed API and backend manual
+docs/performance.md         complexity and memory reference
 ```
 
-The console helpers are temporary by design. They live under `engine/console` so the current executable can display useful results; a future Qt layer can replace them without changing the simulation modules.
+## Quick QNN example
+
+```cpp
+QNN::QNN model;
+model.setFeatureMap([](const std::vector<double>& x) {
+    QuantumCircuit circuit(1);
+    circuit.ry(0, x.at(0));
+    return circuit;
+});
+model.setAnsatz([](const std::vector<double>& theta) {
+    QuantumCircuit circuit(1);
+    circuit.ry(0, theta.at(0));
+    return circuit;
+});
+model.setParameters({0.35});
+model.setOutputMode(QNN::OutputMode::Probability);
+model.setOutputQubit(0);
+double prediction = model.forward({3.141592653589793});
+```
+
+For expectation output, configure one or more `Variational::Hamiltonian` observables. `forwardValues()` returns a vector for multi-output models; `forward()` remains a scalar convenience call.
 
 ## Build
 
-Requirements: CMake 3.20 or newer and a C++17 compiler.
+Requirements: CMake 3.20+ and a C++17 compiler.
 
 ```bash
 cmake -S engine -B engine/build/debug
 cmake --build engine/build/debug --config Debug
 ```
 
-On Windows, run `engine/run.bat` and choose Debug or Release. Each `.cpp` file in `examples/` becomes an individual executable under the selected build configuration.
+On Windows, `engine/run.bat` offers Debug and Release builds. Every `.cpp` file in `examples/` becomes an individual executable.
 
-## Conventions
+## Validation examples
 
-Qubit 0 is the least-significant bit of a basis index. A Bell circuit:
+- `BellState.cpp` and `GHZState.cpp`: known entangled-state amplitudes
+- `GroverSearch.cpp` and `GroverHandBuilt.cpp`: reusable and explicit Grover circuits
+- `ShorFactoring.cpp` and `ShorFactoringHandBuilt.cpp`: reusable and explicit Shor demonstrations
+- `VQE.cpp` and `QAOA.cpp`: variational optimization
+- `QNNClassification.cpp` and `QNNRegression.cpp`: predictive QNN examples
 
-```cpp
-QuantumCircuit bell(2);
-bell.h(0);
-bell.cx(1, 0);
-```
+Qubit 0 is the least-significant bit of a basis index. Bell has probability 0.5 at indices 0 and 3; GHZ has probability 0.5 at indices 0 and 7.
 
-has probability 0.5 at indices 0 and 3. A three-qubit GHZ circuit has probability 0.5 at indices 0 and 7.
+## Scope
 
-## Development milestones
+The project is a transparent CPU reference implementation, not a production hardware simulator. Practical memory is usually reached well before the configured 32-qubit ceiling. Noise, shot-count APIs, scalable reversible arithmetic, advanced optimizers, automatic differentiation for arbitrary operators, GPU/distributed backends, serialization, and Qt integration are future work.
 
-The internal plan remains visible for context: 0.1 foundation, 0.2 programming core, 0.3 circuit library, 0.4 Grover/Shor, and 0.5 variational computing. They are delivered together here as version 0.2. Future work includes QNN inference, gradients, a QNN framework, improved reversible arithmetic, noise models, alternate backends, optimization, serialization, and a Qt frontend.
-
-See [docs/manual.md](docs/manual.md) for API details and runnable examples.
+See [docs/manual.md](docs/manual.md) and [docs/performance.md](docs/performance.md).
