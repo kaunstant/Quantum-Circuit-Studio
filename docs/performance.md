@@ -2,7 +2,7 @@
 
 ## 1. Scope
 
-This document describes the asymptotic cost of the v0.3 CPU statevector implementation. Let `n` be the number of circuit qubits and `N = 2^n` the statevector length. Let `k` be the number of qubits addressed by a supplied matrix operator, and let `p` be the number of trainable parameters.
+This document describes the asymptotic cost of the v0.3.5 CPU statevector implementation. Let `n` be the number of circuit qubits and `N = 2^n` the statevector length. Let `k` be the number of qubits addressed by a supplied matrix operator, and let `p` be the number of trainable parameters.
 
 ## 2. Engine limits
 

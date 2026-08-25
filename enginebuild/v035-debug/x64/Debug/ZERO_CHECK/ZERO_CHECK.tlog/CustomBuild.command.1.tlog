@@ -1,0 +1,10 @@
+^E:\DESKTOP\SIM PROJECTS\QUANTUM SIMULATIONS\QUANTUM CIRCUIT SIMULATION\ENGINEBUILD\V035-DEBUG\CMAKEFILES\64FF81827DEB9A06FC4F578A9C7E5582\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SE:/Desktop/Sim Projects/Quantum Simulations/Quantum Circuit Simulation/engine" "-BE:/Desktop/Sim Projects/Quantum Simulations/Quantum Circuit Simulation/enginebuild/v035-debug" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "E:/Desktop/Sim Projects/Quantum Simulations/Quantum Circuit Simulation/enginebuild/v035-debug/QuantumSimulationStudio.slnx"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

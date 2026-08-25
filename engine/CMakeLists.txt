@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
-project(QuantumSimulationStudio VERSION 0.3 LANGUAGES CXX)
+project(QuantumSimulationStudio VERSION 0.3.5 LANGUAGES CXX)
+
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
 
 # Require C++17 for std::complex and modern standard library features
 set(CMAKE_CXX_STANDARD 17)
@@ -23,15 +26,23 @@ set(ENGINE_SOURCES
 )
 
 add_library(quantum_engine STATIC ${ENGINE_SOURCES})
+add_library(QCS::QCS ALIAS quantum_engine)
+set_target_properties(quantum_engine PROPERTIES EXPORT_NAME QCS)
 # Keep the language requirement visible to downstream applications.
 target_compile_features(quantum_engine PUBLIC cxx_std_17)
 target_include_directories(quantum_engine PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/core
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/registers
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/algorithms
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/variational
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/qnn
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/core>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/registers>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/algorithms>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/variational>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/qnn>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/core>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/registers>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/algorithms>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/variational>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/qnn>
 )
 
 add_executable(QuantumSimulationStudio main.cpp)
@@ -49,3 +60,33 @@ foreach(EXAMPLE_SOURCE IN LISTS EXAMPLE_PROGRAMS)
     target_include_directories(${EXAMPLE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../examples)
     target_link_libraries(${EXAMPLE_NAME} PRIVATE quantum_engine)
 endforeach()
+
+install(TARGETS quantum_engine
+    EXPORT QCSTargets
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+install(EXPORT QCSTargets
+    FILE QCSTargets.cmake
+    NAMESPACE QCS::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QCS
+)
+
+configure_package_config_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/QCSConfig.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/QCSConfig.cmake
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QCS
+)
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/QCSConfigVersion.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion
+)
+install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/QCSConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/QCSConfigVersion.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/QCS
+)

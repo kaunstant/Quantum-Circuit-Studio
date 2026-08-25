@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\x64\Debug\ZERO_CHECK</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\BellState.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\BernsteinVazirani.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\Deutsch.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\DeutschJozsa.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\GHZState.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\GroverHandBuilt.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\GroverSearch.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\InverseQFT.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\PhaseEstimation.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\QAOA.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\QFT.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\QNNClassification.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\QNNRegression.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\QuantumSimulationStudio.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\ShorFactoring.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\ShorFactoringHandBuilt.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\Simon.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\Teleportation.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\VQE.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\Debug\WalshHadamard.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-debug\x64\Debug\ALL_BUILD</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles />
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>

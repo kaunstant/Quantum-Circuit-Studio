@@ -2,6 +2,7 @@
 build/
 cmake-build-*/
 out/
+engine/tools/
 
 # Compiled binaries / objects
 *.exe

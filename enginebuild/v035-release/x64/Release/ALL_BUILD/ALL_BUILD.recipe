@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\x64\Release\ZERO_CHECK</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\BellState.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\BernsteinVazirani.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\Deutsch.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\DeutschJozsa.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\GHZState.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\GroverHandBuilt.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\GroverSearch.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\InverseQFT.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\PhaseEstimation.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\QAOA.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\QFT.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\QNNClassification.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\QNNRegression.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\QuantumSimulationStudio.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\ShorFactoring.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\ShorFactoringHandBuilt.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\Simon.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\Teleportation.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\VQE.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\Release\WalshHadamard.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>E:\Desktop\Sim Projects\Quantum Simulations\Quantum Circuit Simulation\enginebuild\v035-release\x64\Release\ALL_BUILD</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles />
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>

@@ -2,7 +2,7 @@
 
 ## 1. Release identity
 
-Version 0.3 is the consolidated research release. It contains the former 1. foundation, 2. programming core, 3. circuit library, 4. Grover/Shor, 5. VQE/QAOA, 6. QNN inference, 7. parameter-shift gradients, and 8. QNN framework foundations.
+Version 0.3.5 is the portable packaging release. It contains the consolidated 0.3 research implementation plus a Windows launcher that bootstraps CMake locally, separate Debug/Release QCS exports, and standalone library examples.
 
 ## 2. Design goals
 
@@ -148,7 +148,9 @@ cmake -S engine -B engine/build/debug
 cmake --build engine/build/debug --config Debug
 ```
 
-CMake builds the static `quantum_engine` library, the engine smoke program, and one executable for each example source.
+CMake builds the static `quantum_engine` library, the engine smoke program, and one executable for each example source. On Windows, `engine/run.bat` is the recommended entry point: it checks for MSVC, finds or downloads CMake locally, builds the selected configuration, and installs it to `engine/build/qcs-install/debug` or `engine/build/qcs-install/release`.
+
+The supported machine must have Windows and a compatible Visual Studio or Build Tools installation with the Desktop development with C++ workload. CMake can be installed automatically by the launcher, but the compiler and Windows SDK must be supplied by the user. A missing compiler, SDK, network connection, or unsupported platform is reported during the preflight/configuration step.
 
 ## 25. Error handling
 

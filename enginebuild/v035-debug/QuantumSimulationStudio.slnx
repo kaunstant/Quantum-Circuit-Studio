@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Solution>
+	<Configurations>
+		<BuildType Name="Debug"/>
+		<BuildType Name="Release"/>
+		<BuildType Name="MinSizeRel"/>
+		<BuildType Name="RelWithDebInfo"/>
+		<Platform Name="x64"/>
+	</Configurations>
+	<Project Path="ALL_BUILD.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="d2acf984-0ee7-35d8-893b-fce663feb60d" DefaultStartup="true">
+		<BuildDependency Project="BellState.vcxproj"/>
+		<BuildDependency Project="BernsteinVazirani.vcxproj"/>
+		<BuildDependency Project="Deutsch.vcxproj"/>
+		<BuildDependency Project="DeutschJozsa.vcxproj"/>
+		<BuildDependency Project="GHZState.vcxproj"/>
+		<BuildDependency Project="GroverHandBuilt.vcxproj"/>
+		<BuildDependency Project="GroverSearch.vcxproj"/>
+		<BuildDependency Project="InverseQFT.vcxproj"/>
+		<BuildDependency Project="PhaseEstimation.vcxproj"/>
+		<BuildDependency Project="QAOA.vcxproj"/>
+		<BuildDependency Project="QFT.vcxproj"/>
+		<BuildDependency Project="QNNClassification.vcxproj"/>
+		<BuildDependency Project="QNNRegression.vcxproj"/>
+		<BuildDependency Project="QuantumSimulationStudio.vcxproj"/>
+		<BuildDependency Project="ShorFactoring.vcxproj"/>
+		<BuildDependency Project="ShorFactoringHandBuilt.vcxproj"/>
+		<BuildDependency Project="Simon.vcxproj"/>
+		<BuildDependency Project="Teleportation.vcxproj"/>
+		<BuildDependency Project="VQE.vcxproj"/>
+		<BuildDependency Project="WalshHadamard.vcxproj"/>
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="BellState.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="806b8982-6cf6-3d8d-8059-2a7d8738aebc">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="BernsteinVazirani.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="8fa155db-c4ff-350f-983e-5b568d076a83">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="Deutsch.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="46f9f924-691c-30d2-804e-3460397496d6">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="DeutschJozsa.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="7549e6ca-2f3f-332d-ac4e-c5140f1a9527">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="GHZState.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="6112d6c6-29a1-36ce-a753-7bc8296892f8">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="GroverHandBuilt.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="b50dad47-3b62-34bd-874f-44c58da15b3e">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="GroverSearch.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="e0d3ecd2-5388-32d6-8dcb-2939915be254">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="INSTALL.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="155f1a5e-0c92-321d-9961-0c6be16c3941">
+		<BuildDependency Project="ALL_BUILD.vcxproj"/>
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<Build Solution="Debug|*" Project="false"/>
+		<Build Solution="Release|*" Project="false"/>
+		<Build Solution="MinSizeRel|*" Project="false"/>
+		<Build Solution="RelWithDebInfo|*" Project="false"/>
+	</Project>
+	<Project Path="InverseQFT.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="4c2b7b27-77c9-3f12-8208-e58f45e6dd07">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="PhaseEstimation.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="3639913f-d43b-353c-bbb8-4f5451721b1c">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="QAOA.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="6f42d692-4dec-31c4-aca6-57948e99e6dd">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="QFT.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="ea2ac58f-e9d8-3b9f-90b7-b10fa3fec3d8">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="QNNClassification.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="b6bd1103-40dd-322a-a377-0eac5158df42">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="QNNRegression.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="7e384f8c-40ea-37a2-865c-ec0b1ac0de6e">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="QuantumSimulationStudio.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="7511badb-edf4-3f12-a344-35a792f17c01">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="ShorFactoring.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="6091e5b4-5120-307f-a8ac-7747ab595ed0">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="ShorFactoringHandBuilt.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="4a24aeb1-dc9f-394c-8e1a-4e71889797fb">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="Simon.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="4c38093f-80ee-3017-a9a1-9e69806e4605">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="Teleportation.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="3db51ffc-af75-3b05-9e56-ce07078fe90d">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="VQE.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="0896ae20-4cf7-3812-a824-cce278a0e894">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="WalshHadamard.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="9fb6e367-479e-315e-998e-35a3eee887a1">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="quantum_engine.vcxproj"/>
+	</Project>
+	<Project Path="ZERO_CHECK.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="299c3fbc-381f-3af3-b019-de4bb45da6a8"/>
+	<Project Path="quantum_engine.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="72d9e6b3-392a-30c1-ad52-4413bceb0d2f">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+	</Project>
+</Solution>

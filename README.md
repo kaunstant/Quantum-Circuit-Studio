@@ -1,8 +1,8 @@
 # Quantum Circuit Simulation
 
-## Version 0.3
+## Version 0.3.5
 
-A C++17 CPU statevector simulator and quantum machine-learning research framework. This release consolidates the planned milestones into a coherent reference implementation: circuit construction, algorithm building blocks, Grover, Shor, VQE, QAOA, QNN inference, losses, training, and parameter-shift gradients.
+A C++17 CPU statevector simulator and quantum machine-learning research framework. Version 0.3.5 adds a portable Windows launcher, separate Debug and Release library exports, and standalone library consumers in `lib-examples/`.
 
 The engine is organized as reusable libraries. Console output is intentionally kept in `engine/console` as a temporary demonstration layer so a future Qt frontend can replace it without changing the simulation API.
 
@@ -26,6 +26,7 @@ engine/
 ├── CMakeLists.txt
 └── main.cpp
 examples/                    independent programs with one main() each
+lib-examples/                independent consumers using #include <QCS>
 docs/manual.md               detailed API and backend manual
 docs/performance.md         complexity and memory reference
 ```
@@ -52,16 +53,47 @@ double prediction = model.forward({3.141592653589793});
 
 For expectation output, configure one or more `Variational::Hamiltonian` observables. `forwardValues()` returns a vector for multi-output models; `forward()` remains a scalar convenience call.
 
-## Build
+## Build on Windows
 
-Requirements: CMake 3.20+ and a C++17 compiler.
+Requirements: Windows, Visual Studio 2019/2022 or Build Tools with the **Desktop development with C++** workload, and PowerShell. CMake 3.20+ is supported; `engine/run.bat` uses an installed CMake when available and otherwise downloads a pinned portable CMake copy into `engine/tools/`. Internet access is only required for that first download. The compiler is not downloaded by the project.
 
-```bash
-cmake -S engine -B engine/build/debug
-cmake --build engine/build/debug --config Debug
+```text
+engine\run.bat
 ```
 
-On Windows, `engine/run.bat` offers Debug and Release builds. Every `.cpp` file in `examples/` becomes an individual executable.
+Choose Debug or Release. The script configures, builds, installs the selected QCS library package, and runs `QuantumSimulationStudio`. Every `.cpp` file in `examples/` becomes an individual executable. Versioned launcher build folders prevent stale caches from older project copies; the installed packages are written to `engine/build/qcs-install/debug` and `engine/build/qcs-install/release`.
+
+If the preflight reports an incompatible system, install the C++ workload named above and run again. If CMake cannot be downloaded, install CMake 3.20+ and add it to `PATH`, or provide internet access for the local bootstrap.
+
+## Build and use as an installed library
+
+The engine exports a CMake package named `QCS` and an imported target named `QCS::QCS`. Install it to a prefix, then configure the consumer examples:
+
+```powershell
+cmake -S engine -B engine/build/release -DCMAKE_INSTALL_PREFIX="$PWD/engine/build/qcs-install/release"
+cmake --build engine/build/release --config Release --target quantum_engine
+cmake --install engine/build/release --config Release
+cmake -S lib-examples -B engine/build/lib-examples -DCMAKE_PREFIX_PATH="$PWD/engine/build/qcs-install/release"
+cmake --build engine/build/lib-examples --config Release
+```
+
+For Debug consumers, use `engine/build/debug` and `engine/build/qcs-install/debug` in the equivalent commands.
+
+Consumer code includes the public umbrella header and links the exported target:
+
+```cpp
+#include <QCS>
+
+int main()
+{
+    QuantumCircuit circuit(2);
+    circuit.h(0);
+    circuit.cx(1, 0);
+    const SimulationResult result = QuantumSimulator().run(circuit);
+}
+```
+
+See `lib-examples/CMakeLists.txt` and `lib-examples/README.md` for the standalone consumer setup and complete algorithm examples.
 
 ## Validation examples
 
