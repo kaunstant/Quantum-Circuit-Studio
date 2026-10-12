@@ -1,0 +1,27 @@
+Vine quality QNN predictor
+  Training rows: 16800
+  External epochs: 1
+  Batch size: 32
+  Test rows: 4200
+  Training time: 3217847.4750 ms
+  Test RMSE: 1.9817
+  Test rounded-class accuracy: 16.5714%
+  Test R-squared: 0.0157
+  Saved model: outputs/vine.qnn
+
+Input features: [12.7000, 1.1500, 1.1100, 52.8000, 0.1600, 186.6000, 199.0000, 1.0076, 2.9700, 1.3300, 11.8000]
+  Predicted quality: 5.8679 (rounded 6.0000)
+  Actual quality: 3.0000
+Input features: [10.0000, 0.9000, 0.9400, 49.7000, 0.3750, 116.1000, 360.2000, 1.0065, 3.0000, 1.2800, 11.8000]
+  Predicted quality: 6.1843 (rounded 6.0000)
+  Actual quality: 4.0000
+Input features: [5.9000, 0.4200, 0.3600, 2.4000, 0.0340, 19.0000, 77.0000, 0.9918, 3.2500, 0.4800, 10.9000]
+  Predicted quality: 5.9342 (rounded 6.0000)
+  Actual quality: 5.0000
+Input features: [6.2000, 0.3000, 0.2600, 13.4000, 0.0460, 57.0000, 206.0000, 0.9978, 3.1700, 0.4300, 9.5000]
+  Predicted quality: 5.7972 (rounded 6.0000)
+  Actual quality: 6.0000
+Input features: [8.2000, 0.4400, 0.2400, 2.3000, 0.0630, 10.0000, 28.0000, 0.9961, 3.2500, 0.5300, 10.2000]
+  Predicted quality: 5.6547 (rounded 6.0000)
+  Actual quality: 6.0000
+Press any key to continue . . .

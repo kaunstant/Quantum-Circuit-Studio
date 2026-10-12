@@ -1,112 +1,163 @@
-# Quantum Circuit Simulation
+# Quantum Circuit Studio
 
-## Version 0.3.5
+Quantum Circuit Studio (QCS) is a C++17 state-vector simulator with a Qt
+desktop frontend for viewing quantum circuits. The project combines a
+standalone simulation engine with a circuit-canvas application and source
+examples built around the engine's public API.
 
-A C++17 CPU statevector simulator and quantum machine-learning research framework. Version 0.3.5 adds a portable Windows launcher, separate Debug and Release library exports, and standalone library consumers in `lib-examples/`.
+## Version 0.4
 
-The engine is organized as reusable libraries. Console output is intentionally kept in `engine/console` as a temporary demonstration layer so a future Qt frontend can replace it without changing the simulation API.
+This version introduces a Qt frontend with a circuit canvas, substantial
+backend changes, and updated API naming conventions.
 
-## Current capabilities
+## Highlights
 
-- Statevector simulation with X, Y, Z, H, T, RX, RY, RZ, CX, CY, CZ, SWAP, CCX, and multi-controlled X
-- Quantum/classical registers, parameter binding, arbitrary matrix operators, controlled operators, barriers, measurement collapse, probabilities, and circuit composition
-- QFT, inverse QFT, Walsh-Hadamard, phase estimation, amplitude amplification, teleportation, superdense coding, Deutsch, Deutsch-Jozsa, Bernstein-Vazirani, and Simon scaffolding
-- Grover abstractions: `GroverOracle`, `GroverOperator`, and `GroverSearch`
-- Shor decomposition: GCD, modular multiplication, modular power, modular exponentiation, period-finding circuit, inverse QFT, and classical post-processing
-- VQE and QAOA with Pauli Hamiltonians, expectation values, graph cost functions, and coordinate-descent optimization
-- QNN feature maps, parameterized ansatz circuits, expectation/probability outputs, multiple observables/output qubits, batch inference, MSE/BCE losses, training, forward passes, backward passes, and parameter-shift gradients
+- Dense complex state-vector simulation for small circuits and experiments.
+- Ordered circuit layouts, quantum registers, and gate-operation timelines.
+- Standard gates, parameterized rotations, controlled gates, custom unitary
+  matrices, barriers, and register-level operations.
+- Measurement and sampling for individual wires and joint register outcomes.
+- QFT, inverse QFT, Walsh-Hadamard, and amplitude-amplification primitives.
+- Simulator-side checks for operation ranges and metadata, matrix dimensions,
+  finite values, and unitarity.
+- Classical helpers for GCD, modular arithmetic, continued fractions, and
+  phase-estimation post-processing.
+- Variational circuits, Hamiltonian expectations, and Adam-based VQE and
+  custom-objective optimization.
+- QNN feature maps, expectation/probability readout, losses, gradients,
+  single-threaded mini-batch training, metrics, regression preparation helpers,
+  and model save/load.
+- A Qt circuit canvas for drawing circuit layouts and operation timelines.
 
-## Layout
+The simulator is an ideal, CPU-based dense state-vector implementation. An
+\(n\)-wire state requires \(2^n\) complex amplitudes, so memory and runtime grow
+exponentially. It is intended for learning, small-scale experimentation, and
+prototyping; it does not simulate noise or execute circuits on quantum
+hardware.
+
+Measurement and sampling report observations without collapsing or changing
+the state used by subsequent timeline operations. The optimizer and QNN
+training paths run on a single thread.
+
+## Project layout
 
 ```text
+app/
+  include/                  Qt circuit-canvas interface
+  src/                      Qt circuit-canvas implementation
 engine/
-├── include/{core,registers,algorithms,variational,qnn}
-├── src/{core,registers,algorithms,variational,qnn}
-├── console/                 temporary console presentation helper
-├── CMakeLists.txt
-└── main.cpp
-examples/                    independent programs with one main() each
-lib-examples/                independent consumers using #include <QCS>
-docs/manual.md               detailed API and backend manual
-docs/performance.md         complexity and memory reference
+  include/
+    core/                   Circuit, operation timeline, simulator
+    registers/              Quantum register types
+    utils/                   CSV, quantum, and math helpers
+    variational/             Ansatz and optimizer interfaces
+    qml/                    QNN, gradients, losses, and data helpers
+  src/                      Engine implementations
+example/                     Standalone algorithm and canvas examples
+benchmarks/
+  qcs/                       C++ benchmark snippets for manual use
+  qiskit/                    Python benchmark runner and requirements
+docs/
+  manual.md                  User guide and benchmark results
+main.cpp                     Qt application entry point
+run.bat                      Windows configure, build, and launch script
 ```
 
-## Quick QNN example
+Files under `example/` are reference programs and are not compiled into the
+application. To try one, use its code as the application entry point or build
+it separately against the engine. The benchmark examples under `benchmarks/`
+are also intentionally outside the application build.
+
+## Requirements
+
+- Windows 10 or later, 64-bit.
+- Visual Studio 2019/2022 or Build Tools with the **Desktop development with
+  C++** workload and MSVC.
+- CMake 3.25 or later.
+- The project's local Qt 6 files under `.tools/Qt`.
+
+The CMake project uses the local Qt distribution rather than searching for a
+system Qt installation. Keep `.tools/Qt` included in the GitHub repository so
+cloning the project includes the Qt headers, libraries, runtime DLLs, and
+platform plugin required to configure, build, and run the frontend. The
+project's `.gitignore` deliberately does not exclude this directory. Retain the
+Qt license and notices associated with the included distribution.
+
+The expected local Qt layout includes `include/`, `lib/`, and `bin/`, with the
+Windows platform plugin under `bin/plugins/platforms/`. Debug builds also use
+the Qt debug libraries and plugin.
+
+## Build and run on Windows
+
+From the project root, run:
+
+```bat
+run.bat debug
+```
+
+For an optimized build, use:
+
+```bat
+run.bat release
+```
+
+If the build type is omitted, the script prompts for Debug or Release. The
+launcher initializes the installed MSVC environment, uses CMake from `PATH` or
+downloads its configured portable CMake version when necessary, then
+configures, builds, and launches the application. Build files and installed
+artifacts are written under `build/`.
+
+The application uses Qt Widgets to display the configured circuit/model view.
+The current `main.cpp` loads a compatible QNN archive from the path configured
+there; save a model to that path before launching, or update the path for your
+own model. The application reports a load error if the archive is missing or
+incompatible.
+The canvas API can also be used directly by constructing an
+`app::circuit_canvas` with a circuit layout and its operation timeline, then
+calling `draw()`, `show()`, and `QApplication::exec()`. See the
+[canvas examples](example/canvas/).
+
+## Using the engine
+
+The engine keeps circuit layout, operations, and execution separate:
 
 ```cpp
-QNN::QNN model;
-model.setFeatureMap([](const std::vector<double>& x) {
-    QuantumCircuit circuit(1);
-    circuit.ry(0, x.at(0));
-    return circuit;
-});
-model.setAnsatz([](const std::vector<double>& theta) {
-    QuantumCircuit circuit(1);
-    circuit.ry(0, theta.at(0));
-    return circuit;
-});
-model.setParameters({0.35});
-model.setOutputMode(QNN::OutputMode::Probability);
-model.setOutputQubit(0);
-double prediction = model.forward({3.141592653589793});
+#include "circuit.hpp"
+#include "operators.hpp"
+#include "q_register.hpp"
+#include "simulator.hpp"
+
+quantum::circuit circuit;
+circuit.append(registers::q_register(2));
+
+quantum::operators operations;
+operations.h(circuit(0)[0]);
+operations.cx(circuit(0)[1], circuit(0)[0]); // target first, control second
+operations.sampler(circuit(0), 1024);
+
+quantum::simulator simulator(circuit, operations);
+simulator.run();
 ```
 
-For expectation output, configure one or more `Variational::Hamiltonian` observables. `forwardValues()` returns a vector for multi-output models; `forward()` remains a scalar convenience call.
+Operations are appended to a timeline and executed in order by `run()`. Circuit
+views are tied to their source circuit; keep the circuit and operations alive
+while using the simulator or canvas. Register-local wire zero is the
+least-significant bit in its basis index. The simulator prints operation and
+measurement output by default; pass `false` to the simulator constructor to
+suppress it.
 
-## Build on Windows
+For detailed API and behavior information, see the
+[user manual](docs/manual.md) and the [engine guides](docs/engine/).
 
-Requirements: Windows, Visual Studio 2019/2022 or Build Tools with the **Desktop development with C++** workload, and PowerShell. CMake 3.20+ is supported; `engine/run.bat` uses an installed CMake when available and otherwise downloads a pinned portable CMake copy into `engine/tools/`. Internet access is only required for that first download. The compiler is not downloaded by the project.
+## Examples and benchmarks
 
-```text
-engine\run.bat
-```
+The examples demonstrate elementary circuits, Grover search, QFT and phase
+estimation, Shor-style order finding, VQE, QAOA, QNNs, and circuit-canvas use.
+Each example is a standalone source file with its own `main()` and is kept
+outside the application target.
 
-Choose Debug or Release. The script configures, builds, installs the selected QCS library package, and runs `QuantumSimulationStudio`. Every `.cpp` file in `examples/` becomes an individual executable. Versioned launcher build folders prevent stale caches from older project copies; the installed packages are written to `engine/build/qcs-install/debug` and `engine/build/qcs-install/release`.
-
-If the preflight reports an incompatible system, install the C++ workload named above and run again. If CMake cannot be downloaded, install CMake 3.20+ and add it to `PATH`, or provide internet access for the local bootstrap.
-
-## Build and use as an installed library
-
-The engine exports a CMake package named `QCS` and an imported target named `QCS::QCS`. Install it to a prefix, then configure the consumer examples:
-
-```powershell
-cmake -S engine -B engine/build/release -DCMAKE_INSTALL_PREFIX="$PWD/engine/build/qcs-install/release"
-cmake --build engine/build/release --config Release --target quantum_engine
-cmake --install engine/build/release --config Release
-cmake -S lib-examples -B engine/build/lib-examples -DCMAKE_PREFIX_PATH="$PWD/engine/build/qcs-install/release"
-cmake --build engine/build/lib-examples --config Release
-```
-
-For Debug consumers, use `engine/build/debug` and `engine/build/qcs-install/debug` in the equivalent commands.
-
-Consumer code includes the public umbrella header and links the exported target:
-
-```cpp
-#include <QCS>
-
-int main()
-{
-    QuantumCircuit circuit(2);
-    circuit.h(0);
-    circuit.cx(1, 0);
-    const SimulationResult result = QuantumSimulator().run(circuit);
-}
-```
-
-See `lib-examples/CMakeLists.txt` and `lib-examples/README.md` for the standalone consumer setup and complete algorithm examples.
-
-## Validation examples
-
-- `BellState.cpp` and `GHZState.cpp`: known entangled-state amplitudes
-- `GroverSearch.cpp` and `GroverHandBuilt.cpp`: reusable and explicit Grover circuits
-- `ShorFactoring.cpp` and `ShorFactoringHandBuilt.cpp`: reusable and explicit Shor demonstrations
-- `VQE.cpp` and `QAOA.cpp`: variational optimization
-- `QNNClassification.cpp` and `QNNRegression.cpp`: predictive QNN examples
-
-Qubit 0 is the least-significant bit of a basis index. Bell has probability 0.5 at indices 0 and 3; GHZ has probability 0.5 at indices 0 and 7.
-
-## Scope
-
-The project is a transparent CPU reference implementation, not a production hardware simulator. Practical memory is usually reached well before the configured 32-qubit ceiling. Noise, shot-count APIs, scalable reversible arithmetic, advanced optimizers, automatic differentiation for arbitrary operators, GPU/distributed backends, serialization, and Qt integration are future work.
-
-See [docs/manual.md](docs/manual.md) and [docs/performance.md](docs/performance.md).
+The [benchmark guide](benchmarks/README.md) explains how to run the matching
+QCS and Qiskit workloads. The measured results and workload settings are
+recorded in the [manual](docs/manual.md). Benchmark figures describe those
+specific implementations and test conditions; they are not general
+performance guarantees.

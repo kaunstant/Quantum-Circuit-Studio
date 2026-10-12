@@ -1,39 +1,39 @@
-# Build directories
-build/
-cmake-build-*/
-out/
-engine/tools/
-
-# Compiled binaries / objects
-*.exe
-*.dll
-*.so
-*.a
-*.lib
+# CMake and compiler output
+/build/
+/cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+*.ilk
+*.pdb
+*.idb
 *.obj
 *.o
+*.tlog/
 
-# IDE / editor files
-.vscode/
-.idea/
-*.user
-*.user.*
-*.suo
-*.vcxproj*
-*.vcproj
+# Generated model and application output
+/outputs/
 
-# CMake generated files
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-Makefile
-install_manifest.txt
-compile_commands.json
+# Python virtual environments, bytecode, and local caches
+/.venv/
+**/.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
-# OS files
+# Locally bootstrapped CMake distributions
+/tools/cmake-*/
+/enginetools/cmake-*/
+
+# OS and IDE user state
 .DS_Store
 Thumbs.db
+.vs/
 
-# Temporary files
-*.tmp
-*.log
+# Intentionally do not ignore .tools/Qt: the local Qt distribution is required
+# by the build and should remain available to Git.
+!/.tools/Qt/
+!/.tools/Qt/**
